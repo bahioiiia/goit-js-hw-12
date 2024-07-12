@@ -28,7 +28,13 @@ export function displayImages(images) {
     if (lightBox) {
         lightBox.refresh();
     } else {
-        lightBox = new SimpleLightbox('.gallery a');
+        lightBox = new SimpleLightbox('.gallery a',{
+          captions: true,
+          captionType: 'attr',
+          captionsData: 'alt',
+          captionPosition: 'bottom',
+          captionDelay: 250,
+        });
     }    
 }
 
@@ -56,4 +62,14 @@ export function errorMessage(error) {
     message: error.message,
     position: 'topRight',
   });
+}
+
+export function showLoadMoreButton() {
+  const loadMoreButton = document.getElementById('loadMoreButton');
+  loadMoreButton.style.display = 'inline-block';
+}
+
+export function hideLoadMoreButton() {
+  const loadMoreButton = document.getElementById('loadMoreButton');
+  loadMoreButton.style.display = 'none';
 }
