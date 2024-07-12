@@ -56,6 +56,14 @@ export function notFoundMessage() {
   });
 }
 
+export function endOfListMessage() {
+  iziToast.info({
+    title: 'End of List',
+    message: "We're sorry, but you've reached the end of search results.",
+    position: 'topRight',
+  });
+}
+
 export function errorMessage(error) {
   iziToast.error({
     title: 'Error',

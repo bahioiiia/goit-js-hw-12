@@ -14,7 +14,11 @@ export async function fetchImages(query, page = 1, perPage = 12) {
     
     return await axios.get(url)
         .then((response) => {
-            return response.data.hits;
+            console.log(response);
+            return {
+                images: response.data.hits,
+                totalImages: response.data.totalHits 
+            }
         })
         .catch((error) => console.log(error));
 }

@@ -8,7 +8,10 @@ import {
   showLoading,
   hideLoading,
   notFoundMessage,
+  endOfListMessage,
   errorMessage,
+  showLoadMoreButton, 
+  hideLoadMoreButton
 } from './js/render-functions.js';
 
 document.getElementById('searchButton').addEventListener('click', async () => {
@@ -18,14 +21,24 @@ document.getElementById('searchButton').addEventListener('click', async () => {
   }
   showLoading();
   clearGallery();
-  const perPage = 24;
+  const perPage = 15;
+  const currentPage = 1;
   try {
-    const images = await fetchImages(query, perPage);
+    const { images, totalImages } = await fetchImages(query, currentPage, perPage);
+      console.log(images);
+      console.log(totalImages);
     if (images.length === 0) {
       notFoundMessage();
     } else {
       displayImages(images);
+      showLoadMoreButton()
     }
+
+    if (currentPage * perPage >= totalImages) {
+      hideLoadMoreButton();
+      endOfListMessage();
+    }
+
   } catch (error) {  
     errorMessage(error);
   } finally {

@@ -42,7 +42,7 @@ section {
 button {
   border-radius: 8px;
   height: 40px;
-  width: 91px;
+  width: 105px;/* 91px; */
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
