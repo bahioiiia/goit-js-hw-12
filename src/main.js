@@ -14,19 +14,21 @@ import {
   hideLoadMoreButton
 } from './js/render-functions.js';
 
+let query = "sert";
+let currentPage = 1;
+const perPage = 3;
+
 document.getElementById('searchButton').addEventListener('click', async () => {
-  const query = document.getElementById('searchInput').value.trim();
+  currentPage = 1;
+  query = document.getElementById('searchInput').value.trim();
   if (query === '') {
     return;
   }
   showLoading();
   clearGallery();
-  const perPage = 15;
-  const currentPage = 1;
+
   try {
     const { images, totalImages } = await fetchImages(query, currentPage, perPage);
-      console.log(images);
-      console.log(totalImages);
     if (images.length === 0) {
       notFoundMessage();
     } else {
@@ -41,6 +43,29 @@ document.getElementById('searchButton').addEventListener('click', async () => {
 
   } catch (error) {  
     errorMessage(error);
+  } finally {
+    hideLoading();
+  }
+});
+
+document.getElementById('loadMoreButton').addEventListener('click', async () => {
+  currentPage++;
+  showLoading();
+
+  try {
+    const { images, totalImages } = await fetchImages(query, currentPage, perPage);
+    if (images.length === 0) {
+      showNoResultsMessage();
+    } else {
+      displayImages(images);
+
+      if (currentPage * perPage >= totalImages) {
+        hideLoadMoreButton();
+        endOfListMessage();
+      }
+    }
+  } catch (error) {
+    showErrorMessage(error);
   } finally {
     hideLoading();
   }
