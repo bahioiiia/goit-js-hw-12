@@ -24,10 +24,9 @@ document.getElementById('searchButton').addEventListener('click', async () => {
   if (query === '') {
     return;
   }
-  showLoading();
   clearGallery();
-
   try {
+    showLoading();
     const { images, totalImages } = await fetchImages(query, currentPage, perPage);
     if (images.length === 0) {
       notFoundMessage();
@@ -35,12 +34,12 @@ document.getElementById('searchButton').addEventListener('click', async () => {
       displayImages(images);
       showLoadMoreButton()
     }
-
+    
     if (currentPage * perPage >= totalImages) {
       hideLoadMoreButton();
       endOfListMessage();
     }
-
+    
   } catch (error) {  
     errorMessage(error);
   } finally {
@@ -50,22 +49,20 @@ document.getElementById('searchButton').addEventListener('click', async () => {
 
 document.getElementById('loadMoreButton').addEventListener('click', async () => {
   currentPage++;
-  showLoading();
-
   try {
+    showLoading();
     const { images, totalImages } = await fetchImages(query, currentPage, perPage);
     if (images.length === 0) {
       showNoResultsMessage();
     } else {
       displayImages(images);
-
       if (currentPage * perPage >= totalImages) {
         hideLoadMoreButton();
         endOfListMessage();
       }
     }
   } catch (error) {
-    showErrorMessage(error);
+    errorMessage(error);
   } finally {
     hideLoading();
   }
