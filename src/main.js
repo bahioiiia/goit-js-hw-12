@@ -16,7 +16,7 @@ import {
 
 let query = "sert";
 let currentPage = 1;
-const perPage = 3;
+const perPage = 15;
 
 document.getElementById('searchButton').addEventListener('click', async () => {
   currentPage = 1;
@@ -56,6 +56,7 @@ document.getElementById('loadMoreButton').addEventListener('click', async () => 
       showNoResultsMessage();
     } else {
       displayImages(images);
+      scrollDown();
       if (currentPage * perPage >= totalImages) {
         hideLoadMoreButton();
         endOfListMessage();
@@ -67,3 +68,15 @@ document.getElementById('loadMoreButton').addEventListener('click', async () => 
     hideLoading();
   }
 });
+
+function scrollDown() {
+  const galleryItem = document.querySelector('.gallery-item');
+  if (!galleryItem) {
+    return;
+  }
+  const pxToScroll = galleryItem.getBoundingClientRect().height * 2;
+  window.scrollBy({
+    top: pxToScroll,
+    behavior: 'smooth'
+  });
+}
