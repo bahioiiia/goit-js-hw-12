@@ -81,3 +81,15 @@ export function hideLoadMoreButton() {
   const loadMoreButton = document.getElementById('loadMoreButton');
   loadMoreButton.style.display = 'none';
 }
+
+export function scrollDown() {
+  const galleryItem = document.querySelector('.gallery-item');
+  if (!galleryItem) {
+    return;
+  }
+  const pxToScroll = galleryItem.getBoundingClientRect().height * 2;
+  window.scrollBy({
+    top: pxToScroll,
+    behavior: 'smooth'
+  });
+}

@@ -11,7 +11,8 @@ import {
   endOfListMessage,
   errorMessage,
   showLoadMoreButton, 
-  hideLoadMoreButton
+  hideLoadMoreButton,
+  scrollDown
 } from './js/render-functions.js';
 
 let query = "sert";
@@ -68,15 +69,3 @@ document.getElementById('loadMoreButton').addEventListener('click', async () => 
     hideLoading();
   }
 });
-
-function scrollDown() {
-  const galleryItem = document.querySelector('.gallery-item');
-  if (!galleryItem) {
-    return;
-  }
-  const pxToScroll = galleryItem.getBoundingClientRect().height * 2;
-  window.scrollBy({
-    top: pxToScroll,
-    behavior: 'smooth'
-  });
-}
